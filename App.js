@@ -1,13 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import DeckList from './components/DeckList';
 
 export default class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      data: ['31', '421', '8', '44', '2934', '2']
+    }
+  }
   render() {
+    const { data } = this.state
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <DeckList data={data} />
+        {/* <Text>List goes here...</Text> */}
       </View>
     );
   }
