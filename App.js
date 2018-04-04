@@ -3,20 +3,34 @@ import { StyleSheet, Text, View } from 'react-native';
 import DeckList from './components/DeckList';
 
 export default class App extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      data: ['31', '421', '8', '44', '2934', '2']
-    }
+  state = {
+    data: [
+      {
+        'id': '1',
+        'title': 'React',
+        'subtitle': "It's just JavaScript",
+      },
+      {
+        'id': '2',
+        'title': 'JavaScript',
+        'subtitle': 'Making the dollar hollar',
+      },
+      {
+        'id': '3',
+        'title': 'Sass',
+        'subtitle': 'Syntastically awesome style sheets',
+      },
+    ]
   }
+
   render() {
     const { data } = this.state
+
     return (
       <View style={styles.container}>
         <DeckList data={data} />
-        {/* <Text>List goes here...</Text> */}
       </View>
-    );
+    )
   }
 }
 
@@ -27,4 +41,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
