@@ -7,7 +7,7 @@ const DeckListItem = props => {
   return (
     <View>
       <Text style={{fontSize: 45}}>{data.title}</Text>
-      <Text style={{fontSize: 24, marginBottom: 18}}>{data.title}</Text>
+      <Text style={{fontSize: 24, marginBottom: 18}}>{data.subtitle}</Text>
     </View>
   )
 }
