@@ -2,10 +2,39 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import { TabNavigator, StackNavigator, DrawerNavigator } from 'react-navigation'
 import reducer from './reducers'
-import DeckList from './containers/DeckList';
+import DeckList from './containers/DeckList'
+import AddDeck from './containers/AddDeck'
+import { white } from './utils/colors'
 
 const store = createStore( reducer )
+
+// const Tabs = TabNavigator(
+//   {
+//     Home: {screen: DeckList},
+//     AddDeck: {screen: AddDeck},
+//   },
+//   {
+//     animationEnabled: true,
+//     swipeEnabled: true,
+//   },
+// )
+
+const Stack = StackNavigator(
+  {
+    Home: {
+      screen: DeckList,
+    },
+    AddDeck: {
+      screen: AddDeck,
+    },
+  },
+  {
+    headerMode: 'none',
+    mode: 'card',
+  },
+)
 
 export default class App extends React.Component {
   // state = {
@@ -32,7 +61,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <DeckList />
+          <Stack />
         </View>
       </Provider>
     )
@@ -42,8 +71,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: white,
+    paddingTop: 36,
   },
 })
