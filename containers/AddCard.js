@@ -73,7 +73,10 @@ const styles = StyleSheet.create({
   btnTextWrap: {
     backgroundColor: purple,
     marginTop: 18,
-    padding: 18,
+    paddingTop: 36,
+    paddingRight: 18,
+    paddingBottom: 36,
+    paddingLeft: 18,
     shadowRadius: 3,
     shadowOffset: { width: 0, height: 2 },
     shadowColor: 'rgba(0,0,0,.27)',
