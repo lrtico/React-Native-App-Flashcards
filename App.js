@@ -6,6 +6,9 @@ import { TabNavigator, StackNavigator, DrawerNavigator } from 'react-navigation'
 import reducer from './reducers'
 import DeckList from './containers/DeckList'
 import AddDeck from './containers/AddDeck'
+import Deck from './components/Deck'
+import AddCard from './containers/AddCard'
+import Quiz from './containers/Quiz'
 import { white } from './utils/colors'
 
 const store = createStore( reducer )
@@ -28,6 +31,15 @@ const Stack = StackNavigator(
     },
     AddDeck: {
       screen: AddDeck,
+    },
+    Deck: {
+      screen: Deck,
+    },
+    AddCard: {
+      screen: AddCard,
+    },
+    Quiz: {
+      screen: Quiz,
     },
   },
   {

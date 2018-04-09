@@ -3,30 +3,35 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-nativ
 import { NavigationActions } from 'react-navigation'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { purple, white } from '../utils/colors'
-import { addDeck } from '../actions'
+import { addCard } from '../actions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { randomId } from '../utils/helpers'
 import PageTitle from '../components/PageTitle'
 
-class AddDeck extends Component {
+class AddCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      deckName: ''
+      deckName: '',
+      question: '',
+      answer: '',
     }
   }
 
-  handleAddDeck = () => {
-    console.log('deckname: ', this.state.deckName);
-    this.props.addDeck({id:'4', title: this.state.deckName, subtitle: 'Lorem'})
-    this.setState({ deckName: '' })
+  handleAddCard = () => {
+    console.log(`The question is $(this.state.deckName) the answer is $(this.state.answer)`);
+    const deckId = this.props.navigation.state.params.deckId
+    this.props.addCard({ deckId, id: randomId(), question: this.state.question, answer: this.state.answer })
+    this.setState({ deckName: '', question: '', answer: '' })
     this.props.navigation.navigate('Home')
   }
 
   render() {
     console.disableYellowBox = true; //Disable the warnings in the simulator
-    console.log("Add Deck: ", this.props)
-    const { deckName } = this.state.deckName
+    console.log("Add Card: ", this.props)
+    console.log(`Curr id is ${this.props.navigation.state.params.deckId}`)
+    const { question, answer } = this.state
     return (
       <View>
         <TouchableOpacity
@@ -36,20 +41,28 @@ class AddDeck extends Component {
           <MaterialIcons name="keyboard-arrow-left" size={30} color={purple} />
           <Text>Deck List</Text>
         </TouchableOpacity>
-        <PageTitle titleText="Add a deck" />
+        <PageTitle titleText="Add a card" />
         <View style={{marginBottom: 18, marginTop: 36}}>
           <TextInput
             style={{borderBottomColor: purple, borderBottomWidth: 1, fontSize: 24}}
-            placeholder='Name of the deck'
-            onChangeText={(deckName) => this.setState({ deckName })}
+            placeholder='Type your question'
+            onChangeText={(question) => this.setState({ question })}
+            value={ this.state.deckName }
+          />
+        </View>
+        <View style={{marginBottom: 36, marginTop: 18}}>
+          <TextInput
+            style={{borderBottomColor: purple, borderBottomWidth: 1, fontSize: 24}}
+            placeholder='Type your answer'
+            onChangeText={(answer) => this.setState({ answer })}
             value={ this.state.deckName }
           />
         </View>
         <TouchableOpacity
-          onPress={this.handleAddDeck}
+          onPress={this.handleAddCard}
           style={styles.btnTextWrap}
         >
-          <Text style={styles.btnText}>Add Deck</Text>
+          <Text style={styles.btnText}>Add Card</Text>
         </TouchableOpacity>
       </View>
     )
@@ -75,10 +88,10 @@ const styles = StyleSheet.create({
 })
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addDeck }, dispatch)
+  return bindActionCreators({ addCard }, dispatch)
 }
 
 export default connect(
   null,
   mapDispatchToProps
-)(AddDeck)
+)(AddCard)
