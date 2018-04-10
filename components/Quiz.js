@@ -6,6 +6,7 @@ import { purple, white, black, lightPurple, darkPurple, gray } from '../utils/co
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { clearLocalNotifications, setLocalNotificiation } from '../utils/helpers'
 import PageTitle from '../components/PageTitle'
 
 class Quiz extends Component {
@@ -69,6 +70,8 @@ class Quiz extends Component {
     console.log(`# of questions in this deck = ${ totalQuestions }`)
     const lastChoice = choice
     console.log('Last choice = ', lastChoice)
+    clearLocalNotifications()
+    .then(setLocalNotificiation)
     let finalScore = this.state.correct
     switch(lastChoice) {
       case 'correct' :

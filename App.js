@@ -11,19 +11,9 @@ import AddCard from './containers/AddCard'
 import Quiz from './components/Quiz'
 import QuizResults from './components/QuizResults'
 import { white } from './utils/colors'
+import { setLocalNotificiation } from './utils/helpers'
 
 const store = createStore( reducer )
-
-// const Tabs = TabNavigator(
-//   {
-//     Home: {screen: DeckList},
-//     AddDeck: {screen: AddDeck},
-//   },
-//   {
-//     animationEnabled: true,
-//     swipeEnabled: true,
-//   },
-// )
 
 const Stack = StackNavigator(
   {
@@ -53,26 +43,9 @@ const Stack = StackNavigator(
 )
 
 export default class App extends React.Component {
-  // state = {
-  //   data: [
-  //     {
-  //       'id': '1',
-  //       'title': 'React',
-  //       'subtitle': "It's just JavaScript",
-  //     },
-  //     {
-  //       'id': '2',
-  //       'title': 'JavaScript',
-  //       'subtitle': 'Making the dollar hollar',
-  //     },
-  //     {
-  //       'id': '3',
-  //       'title': 'Sass',
-  //       'subtitle': 'Syntastically awesome style sheets',
-  //     },
-  //   ]
-  // }
-
+  componentDidMount() {
+    setLocalNotificiation()
+  }
   render() {
     return (
       <Provider store={store}>
