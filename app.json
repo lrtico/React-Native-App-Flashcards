@@ -1,5 +1,20 @@
 {
   "expo": {
-    "sdkVersion": "26.0.0"
-  }
+    "sdkVersion": "26.0.0",
+    "orientation": "portrait",
+   "name": "Flashy",
+   "description": "Create flashcards to move information into your long-term memory",
+   "slug": "flashy",
+   "version": "1.0",
+   "icon": "http://www.lrtico.com/jackson/flashcard-ios-icon.png",
+   "notification": {
+     "icon": "http://www.lrtico.com/jackson/flashcard-ios-notification-icon.png"
+  },
+    "ios": {
+     "bundleIdentifier": "org.flashy.exp",
+    },
+    "android": {
+     "package": "org.flashy.exp",
+    }
+  },
 }
