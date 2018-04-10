@@ -6,6 +6,7 @@ import { purple, white } from '../utils/colors'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { randomId } from '../utils/helpers'
 import PageTitle from '../components/PageTitle'
 
 class AddDeck extends Component {
@@ -18,7 +19,7 @@ class AddDeck extends Component {
 
   handleAddDeck = () => {
     console.log('deckname: ', this.state.deckName);
-    this.props.addDeck({id:'4', title: this.state.deckName, subtitle: 'Lorem'})
+    this.props.addDeck({id:randomId(), title: this.state.deckName, questions: {}})
     this.setState({ deckName: '' })
     this.props.navigation.navigate('Home')
   }

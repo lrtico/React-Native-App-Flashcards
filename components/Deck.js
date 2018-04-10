@@ -19,7 +19,7 @@ class Deck extends Component {
     return (
       <View style={{flex: 1, justifyContent: 'flex-start'}}>
         <TouchableOpacity
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() => this.props.navigation.navigate('Home')}
           style={{flexDirection: 'row', alignItems: 'center'}}
         >
           <MaterialIcons name="keyboard-arrow-left" size={30} color={purple} />
@@ -32,7 +32,7 @@ class Deck extends Component {
             'Quiz',
             { deck: this.props.navigation.state.params.deck }
           )}
-          style={styles.btnTextWrap}
+          style={[styles.btnTextWrap, { marginTop: 72 }]}
         >
           <Text style={styles.btnText}>Start a quiz!</Text>
         </TouchableOpacity>

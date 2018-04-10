@@ -31,7 +31,7 @@ class DeckList extends Component {
           color={black}
         />
         <PageTitle titleText="Decks" />
-        <View>
+        <View style={{ marginTop: 36 }}>
           {decks.map((item) =>
             <TouchableOpacity key={item.id}
               onPress={() => this.handleDeckNavigation(item)}

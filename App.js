@@ -8,7 +8,8 @@ import DeckList from './containers/DeckList'
 import AddDeck from './containers/AddDeck'
 import Deck from './components/Deck'
 import AddCard from './containers/AddCard'
-import Quiz from './containers/Quiz'
+import Quiz from './components/Quiz'
+import QuizResults from './components/QuizResults'
 import { white } from './utils/colors'
 
 const store = createStore( reducer )
@@ -40,6 +41,9 @@ const Stack = StackNavigator(
     },
     Quiz: {
       screen: Quiz,
+    },
+    Results: {
+      screen: QuizResults,
     },
   },
   {

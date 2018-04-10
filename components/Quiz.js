@@ -15,6 +15,9 @@ class Quiz extends Component {
       opacity: new Animated.Value(0),
       bounceValue: new Animated.Value(1),
       questionIndex: 0,
+      correct: 0,
+      incorrect: 0,
+      deck: this.props.navigation.state.params.deck
     }
   }
 
@@ -23,29 +26,88 @@ class Quiz extends Component {
     const { opacity, bounceValue } = this.state
     Animated.timing(opacity, { toValue: 1, duration: 1000 }).start()
     Animated.sequence([
-      Animated.timing(bounceValue, { toValue: 1.84, duration: 800 }),
+      Animated.timing(bounceValue, { toValue: 1.04, duration: 800 }),
       Animated.spring(bounceValue, { toValue: 1, friction: 4 })
       .start()
     ])
   }
 
-  handleNextQuestion = () => {
-    console.log('Next question pressed!')
+  handleAnswer = (choice) => {
+    console.log('# correct = ', this.state.correct)
+    console.log('Correct/Incorrect pressed!')
+    console.log(`Index # = ${ this.state.questionIndex }`)
     const { opacity } = this.state
     Animated.timing(opacity, { toValue: 0, duration: 1 }).start()
+    const totalQuestions = this.state.deck.questions.length
+    //If the questionIndex = totalQuestions, show
+    if (totalQuestions === this.state.questionIndex + 1) {
+      console.log('End of questions')
+      console.log('# correct = ', this.state.correct)
+      this.showResults(choice)
+    } else {
+      this.setState(() => ({
+        questionIndex: this.state.questionIndex + 1,
+        choice: this.state[choice]++,
+      }))
+    }
+  }
+
+  resetQuiz = () => {
+    console.log('Resetting state...')
     this.setState(() => ({
-      questionIndex: this.state.questionIndex + 1
+      questionIndex: 0,
+      correct: 0,
+      incorrect: 0,
     }))
+  }
+
+  showResults = (choice) => {
+    console.log('Going to results view...')
+    console.log('props', this.props)
+    console.log('choice = ', choice)
+    const totalQuestions = this.state.deck.questions.length
+    console.log(`# of questions in this deck = ${ totalQuestions }`)
+    const lastChoice = choice
+    console.log('Last choice = ', lastChoice)
+    let finalScore = this.state.correct
+    switch(lastChoice) {
+      case 'correct' :
+        finalScore = finalScore + 1
+        return (
+          console.log('Final score correct = ', finalScore),
+          this.props.navigation.navigate(
+            'Results',
+            { currScore: finalScore,
+              totalQuestions: totalQuestions,
+              onGoBack: () => this.resetQuiz(),
+              deckData: this.state.deck,
+            }
+          )
+        )
+      default :
+        return (
+          console.log('Final score default = ', finalScore),
+          this.props.navigation.navigate(
+            'Results',
+            { currScore: finalScore,
+              totalQuestions: totalQuestions,
+              onGoBack: () => this.resetQuiz(),
+              deckData: this.state.deck,
+            }
+          )
+        )
+    }
   }
 
   render() {
     console.disableYellowBox = true; //Disable the warnings in the simulator
     console.log("Quiz: ", this.props)
     console.log(`Curr id is ${this.props.navigation.state.params.deck.id}`)
-    const { deck } = this.props.navigation.state.params
     console.log(`This deck's data is ${ deck }`)
-    const { opacity, bounceValue, questionIndex } = this.state
+    const { opacity, bounceValue, questionIndex, deck, correct } = this.state
     const currQuestion = deck.questions[this.state.questionIndex]
+    const totalQuestions = deck.questions.length
+    console.log(`total # of questions is ${ totalQuestions }`)
     console.log('currQuestion: ', currQuestion)
 
     return (
@@ -76,21 +138,19 @@ class Quiz extends Component {
         </View>
 
         <View style={{marginTop: 3, marginBottom: 72, flexDirection: 'row', justifyContent: 'space-around'}}>
-          <TouchableOpacity style={[styles.btnTextWrap, { flex: 1, backgroundColor: lightPurple }]}>
+          <TouchableOpacity
+            style={[styles.btnTextWrap, { flex: 1, backgroundColor: lightPurple }]}
+            onPress={() => this.handleAnswer('correct')}
+          >
             <Text style={styles.btnText}>Correct</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.btnTextWrap, { flex: 1, backgroundColor: darkPurple }]}>
+          <TouchableOpacity
+            style={[styles.btnTextWrap, { flex: 1, backgroundColor: darkPurple }]}
+            onPress={() => this.handleAnswer('incorrect')}
+          >
             <Text style={styles.btnText}>Incorrect</Text>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          onPress={this.handleNextQuestion}
-          style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end'}}
-        >
-          <Text>Next question</Text>
-          <MaterialIcons name="keyboard-arrow-right" size={30} color={purple} />
-        </TouchableOpacity>
       </View>
     )
   }
