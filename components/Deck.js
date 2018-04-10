@@ -7,13 +7,8 @@ import PageTitle from '../components/PageTitle'
 import AddButtonLabel from '../components/AddButtonLabel'
 
 class Deck extends Component {
-  componentDidMount() {
-    console.log('Mounted!')
-  }
+
   render() {
-    console.disableYellowBox = true; //Disable the warnings in the simulator
-    console.log('Deck view: ', this.props)
-    console.log(`Curr id is ${this.props.navigation.state.params.deck.id}`)
     const { decks, navigation } = this.props
 
     return (

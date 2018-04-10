@@ -59,26 +59,21 @@ const initialState = [
 
 export default ( state = initialState, action ) => {
   const { decks } = action
-  console.log('reducer test', action)
-  console.log('ADD_DECK', ADD_DECK)
   switch(action.type) {
     case FETCH_DECKS :
       return {
         decks
       }
     case ADD_DECK :
-      console.log('reducer', action)
       return [
         ...state,
         action.deck
       ]
     case ADD_CARD :
-      console.log('Add card reducer: ', action)
       const deckId = action.card.deckId
       let newState = [...state]
       const matchedDeck = newState.filter(deck => deck.id === deckId )[0]
       matchedDeck.questions.push({id: action.card.id, question: action.card.question, answer: action.card.answer})
-      console.log('Matched Deck Questions: ', matchedDeck.questions)
       return [
         ...newState
       ]

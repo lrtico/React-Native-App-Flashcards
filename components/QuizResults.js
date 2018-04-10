@@ -6,8 +6,6 @@ import PageTitle from './PageTitle'
 
 const QuizResults = props => {
   const { currScore, totalQuestions, deckData } = props.navigation.state.params
-  console.log('props', props)
-  console.log(`currScore = ${ currScore }`)
 
   return (
     <View style={{flex: 1}}>

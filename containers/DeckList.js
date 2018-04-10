@@ -11,7 +11,6 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 class DeckList extends Component {
 
   handleDeckNavigation = (deckData) => {
-    console.log('activate deck navigation!', deckData)
     const {navigation, decks } = this.props
     navigation.navigate(
       'Deck',
@@ -20,9 +19,7 @@ class DeckList extends Component {
   }
 
   render() {
-    console.disableYellowBox = true; //Disable the warnings in the simulator
     const { decks, navigation } = this.props
-    console.log('data', this.props)
     return (
       <View style={{flex: 1, justifyContent: 'flex-start'}}>
         <MaterialIcons

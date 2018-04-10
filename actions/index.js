@@ -10,7 +10,6 @@ export function fetchAllDecks (decks) {
 }
 
 export function addDeck (deck) {
-  console.log('Deck argument: ', deck)
   return {
     type: ADD_DECK,
     deck
@@ -18,7 +17,6 @@ export function addDeck (deck) {
 }
 
 export function addCard (card) {
-  console.log('Card: ', card)
   return {
     type: ADD_CARD,
     card

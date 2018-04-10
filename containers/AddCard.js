@@ -20,7 +20,6 @@ class AddCard extends Component {
   }
 
   handleAddCard = () => {
-    console.log(`The question is $(this.state.deckName) the answer is $(this.state.answer)`);
     const deckId = this.props.navigation.state.params.deckId
     this.props.addCard({ deckId, id: randomId(), question: this.state.question, answer: this.state.answer })
     this.setState({ deckName: '', question: '', answer: '' })
@@ -28,9 +27,6 @@ class AddCard extends Component {
   }
 
   render() {
-    console.disableYellowBox = true; //Disable the warnings in the simulator
-    console.log("Add Card: ", this.props)
-    console.log(`Curr id is ${this.props.navigation.state.params.deckId}`)
     const { question, answer } = this.state
     return (
       <View>

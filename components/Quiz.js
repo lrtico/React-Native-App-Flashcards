@@ -23,7 +23,6 @@ class Quiz extends Component {
   }
 
   handleShowAnswer = () => {
-    console.log('Show answer pressed!')
     const { opacity, bounceValue } = this.state
     Animated.timing(opacity, { toValue: 1, duration: 1000 }).start()
     Animated.sequence([
@@ -34,16 +33,10 @@ class Quiz extends Component {
   }
 
   handleAnswer = (choice) => {
-    console.log('# correct = ', this.state.correct)
-    console.log('Correct/Incorrect pressed!')
-    console.log(`Index # = ${ this.state.questionIndex }`)
     const { opacity } = this.state
     Animated.timing(opacity, { toValue: 0, duration: 1 }).start()
     const totalQuestions = this.state.deck.questions.length
-    //If the questionIndex = totalQuestions, show
     if (totalQuestions === this.state.questionIndex + 1) {
-      console.log('End of questions')
-      console.log('# correct = ', this.state.correct)
       this.showResults(choice)
     } else {
       this.setState(() => ({
@@ -54,7 +47,6 @@ class Quiz extends Component {
   }
 
   resetQuiz = () => {
-    console.log('Resetting state...')
     this.setState(() => ({
       questionIndex: 0,
       correct: 0,
@@ -63,21 +55,17 @@ class Quiz extends Component {
   }
 
   showResults = (choice) => {
-    console.log('Going to results view...')
-    console.log('props', this.props)
-    console.log('choice = ', choice)
     const totalQuestions = this.state.deck.questions.length
-    console.log(`# of questions in this deck = ${ totalQuestions }`)
     const lastChoice = choice
-    console.log('Last choice = ', lastChoice)
+
     clearLocalNotifications()
     .then(setLocalNotificiation)
+
     let finalScore = this.state.correct
     switch(lastChoice) {
       case 'correct' :
         finalScore = finalScore + 1
         return (
-          console.log('Final score correct = ', finalScore),
           this.props.navigation.navigate(
             'Results',
             { currScore: finalScore,
@@ -89,7 +77,6 @@ class Quiz extends Component {
         )
       default :
         return (
-          console.log('Final score default = ', finalScore),
           this.props.navigation.navigate(
             'Results',
             { currScore: finalScore,
@@ -103,15 +90,9 @@ class Quiz extends Component {
   }
 
   render() {
-    console.disableYellowBox = true; //Disable the warnings in the simulator
-    console.log("Quiz: ", this.props)
-    console.log(`Curr id is ${this.props.navigation.state.params.deck.id}`)
-    console.log(`This deck's data is ${ deck }`)
     const { opacity, bounceValue, questionIndex, deck, correct } = this.state
     const currQuestion = deck.questions[this.state.questionIndex]
     const totalQuestions = deck.questions.length
-    console.log(`total # of questions is ${ totalQuestions }`)
-    console.log('currQuestion: ', currQuestion)
 
     return (
       <View>

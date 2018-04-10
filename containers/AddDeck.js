@@ -18,15 +18,12 @@ class AddDeck extends Component {
   }
 
   handleAddDeck = () => {
-    console.log('deckname: ', this.state.deckName);
     this.props.addDeck({id:randomId(), title: this.state.deckName, questions: {}})
     this.setState({ deckName: '' })
     this.props.navigation.navigate('Home')
   }
 
   render() {
-    console.disableYellowBox = true; //Disable the warnings in the simulator
-    console.log("Add Deck: ", this.props)
     const { deckName } = this.state.deckName
     return (
       <View>

@@ -6,7 +6,6 @@ import AddButtonLabel from './AddButtonLabel'
 
 const AddButton = () => {
   return (
-    //button UI goes here
     <TouchableOpacity style={styles.btnCircle}>
       <View style={styles.btn__wrap}>
         <MaterialIcons name="add" size={30} color={white} style={{padding: 9}} />
