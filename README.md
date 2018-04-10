@@ -18,7 +18,9 @@ Users can do the following:
 ### Requirements
 I decided to use npm instead of yarn and due to bugginess, be sure to install npm 4 to avoid issues. To install npm4 enter:
 
-```npm install -g npm@4
+```
+npm install -g npm@4
+
 ```
 For more information, see (https://github.com/expo/expo/issues/297).
 
@@ -27,7 +29,8 @@ The install steps below rely on Xcode being installed on your machine. To view t
 This project uses Expo to assist with device simulation to learn more about device simulation options with Expo please refer to the documentation here (https://docs.expo.io/versions/latest/index.html).
 
 ### Install steps
-```$ git clone https://github.com/lrtico/React-Native-App-Flashcards
+```
+$ git clone https://github.com/lrtico/React-Native-App-Flashcards
 
 $ cd mobileflashcardapp
 
