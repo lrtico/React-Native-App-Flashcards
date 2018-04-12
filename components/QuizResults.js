@@ -6,8 +6,6 @@ import PageTitle from './PageTitle'
 
 const QuizResults = props => {
   const { currScore, totalQuestions, deckData } = props.navigation.state.params
-  console.log('QuizResults props: ', props)
-
   return (
     <View style={{flex: 1}}>
       <TouchableOpacity

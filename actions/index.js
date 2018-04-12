@@ -18,7 +18,6 @@ export function addDeck (deck) {
 }
 
 export function deleteDeck (deckId) {
-  console.log('Delete deck passing: ', deckId)
   return {
     type: DELETE_DECK,
     deckId

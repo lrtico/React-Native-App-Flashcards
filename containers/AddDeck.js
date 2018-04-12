@@ -28,10 +28,6 @@ class AddDeck extends Component {
     )
   }
 
-  componentDidMount() {
-    console.log('Add deck props: ', this.props)
-  }
-
   render() {
     const { deckName } = this.state.deckName
     return (

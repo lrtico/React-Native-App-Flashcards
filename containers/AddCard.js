@@ -30,7 +30,6 @@ class AddCard extends Component {
 
   render() {
     const { question, answer } = this.state
-    console.log('add card props: ', this.props)
     return (
       <View>
         <TouchableOpacity

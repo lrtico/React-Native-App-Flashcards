@@ -13,29 +13,17 @@ class Deck extends Component {
 
   handleDeleteDeck = () => {
     const deckId = this.props.deck.id
-    console.log(`This deck's id = `, deckId)
     this.props.deleteDeck( deckId )
-    // console.log('Deck was deleted')
     this.props.navigation.navigate('Home')
   }
 
   refreshPage = () => {
-    console.log('Back from add card')
     this.setState({
       refresh: ''
     })
   }
 
-  componentDidMount() {
-    console.log('Deck mounted!')
-    // const {deck} = this.props
-    console.log("The state is (deck): ", this.props)
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('Should component update')
-    console.log('nextProps: ', nextProps.deck)
-    console.log('nextState: ', nextState)
     if (nextProps.deck === undefined) {
       return false
     }
@@ -44,9 +32,6 @@ class Deck extends Component {
 
   render() {
     const { deck, navigation } = this.props
-    console.disableYellowBox = true;
-    // console.log('deck props: ', this.props)
-
     return (
       <View style={{flex: 1, justifyContent: 'flex-start'}}>
         <TouchableOpacity
@@ -159,10 +144,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state, props) {
-  console.log('mapStateToProps props: ', props)
-  console.log(`The state being mapped is: `, state)
   const deckId = props.navigation.state.params.deckId
-  console.log(`The id being passed from props is ${deckId}`)
   return {
     deck: state.decks.filter( deck => deck.id === deckId )[0]
   }

@@ -71,13 +71,11 @@ export default ( state = initialState, action ) => {
         action.deck
       ]
     case DELETE_DECK :
-      console.log('Reducer delete deck: ', action.deckId)
       return state.filter(deck => deck.id !== action.deckId)
     case ADD_CARD :
       const deckId = action.card.deckId
       let newState = [...state]
       const matchedDeck = newState.filter(deck => deck.id === deckId )[0]
-      console.log('matched deck = ', matchedDeck)
       matchedDeck.questions.push({id: action.card.id, question: action.card.question, answer: action.card.answer})
       return [
         ...newState
