@@ -21,13 +21,16 @@ class AddCard extends Component {
 
   handleAddCard = () => {
     const deckId = this.props.navigation.state.params.deckId
+    const {navigation, decks } = this.props
     this.props.addCard({ deckId, id: randomId(), question: this.state.question, answer: this.state.answer })
     this.setState({ deckName: '', question: '', answer: '' })
-    this.props.navigation.navigate('Home')
+    this.props.navigation.state.params.onGoBack()
+    this.props.navigation.goBack()
   }
 
   render() {
     const { question, answer } = this.state
+    console.log('add card props: ', this.props)
     return (
       <View>
         <TouchableOpacity

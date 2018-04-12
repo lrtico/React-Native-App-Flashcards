@@ -1,5 +1,6 @@
 import { FETCH_DECKS } from '../actions'
 import { ADD_DECK } from '../actions'
+import { DELETE_DECK } from '../actions'
 import { ADD_CARD } from '../actions'
 import { randomId } from '../utils/helpers'
 
@@ -50,7 +51,7 @@ const initialState = [
         },
         {
           id: randomId(),
-          'question': 'What does the & do?',
+          'question': 'What does the "&" do?',
           'answer': 'The almight parent selector.',
         },
       ],
@@ -69,10 +70,14 @@ export default ( state = initialState, action ) => {
         ...state,
         action.deck
       ]
+    case DELETE_DECK :
+      console.log('Reducer delete deck: ', action.deckId)
+      return state.filter(deck => deck.id !== action.deckId)
     case ADD_CARD :
       const deckId = action.card.deckId
       let newState = [...state]
       const matchedDeck = newState.filter(deck => deck.id === deckId )[0]
+      console.log('matched deck = ', matchedDeck)
       matchedDeck.questions.push({id: action.card.id, question: action.card.question, answer: action.card.answer})
       return [
         ...newState

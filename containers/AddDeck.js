@@ -18,9 +18,18 @@ class AddDeck extends Component {
   }
 
   handleAddDeck = () => {
-    this.props.addDeck({id:randomId(), title: this.state.deckName, questions: {}})
+    const deckName = this.state.deckName
+    const id = randomId()
+    this.props.addDeck({id: id, title: deckName, questions: []})
     this.setState({ deckName: '' })
-    this.props.navigation.navigate('Home')
+    this.props.navigation.navigate(
+      'Deck',
+      { deckId: id }
+    )
+  }
+
+  componentDidMount() {
+    console.log('Add deck props: ', this.props)
   }
 
   render() {

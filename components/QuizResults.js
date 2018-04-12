@@ -6,6 +6,7 @@ import PageTitle from './PageTitle'
 
 const QuizResults = props => {
   const { currScore, totalQuestions, deckData } = props.navigation.state.params
+  console.log('QuizResults props: ', props)
 
   return (
     <View style={{flex: 1}}>
@@ -42,7 +43,7 @@ const QuizResults = props => {
           style={[styles.btnTextWrap, { flex: 1, backgroundColor: darkPurple, marginLeft: 3 }]}
           onPress={() => props.navigation.navigate(
             'Deck',
-            { deck: deckData }
+            { deckId: props.navigation.state.params.deckData.id }
           )}
         >
           <Text style={styles.btnText}>Back to deck</Text>

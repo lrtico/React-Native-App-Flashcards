@@ -11,15 +11,19 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 class DeckList extends Component {
 
   handleDeckNavigation = (deckData) => {
-    const {navigation, decks } = this.props
-    navigation.navigate(
+    this.props.navigation.navigate(
       'Deck',
-      { deck: deckData }
+      { deckId: deckData.id }
     )
+  }
+
+  componentDidMount() {
+    console.log(`The props are: ${this.props}`)
   }
 
   render() {
     const { decks, navigation } = this.props
+    console.disableYellowBox = true;
     return (
       <View style={{flex: 1, justifyContent: 'flex-start'}}>
         <MaterialIcons
@@ -83,6 +87,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
+  console.log(`The mapStateToProps state = ${state}`)
   return {
     decks: state.decks
   }

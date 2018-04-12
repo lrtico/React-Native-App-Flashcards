@@ -1,44 +1,97 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { purple, white, gray, black } from '../utils/colors'
+import { purple, white, gray, black, lightPurple, darkPurple } from '../utils/colors'
 import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
+import { deleteDeck } from '../actions'
+import { bindActionCreators } from 'redux'
 import PageTitle from '../components/PageTitle'
 import AddButtonLabel from '../components/AddButtonLabel'
 
 class Deck extends Component {
 
+  handleDeleteDeck = () => {
+    const deckId = this.props.deck.id
+    console.log(`This deck's id = `, deckId)
+    this.props.deleteDeck( deckId )
+    // console.log('Deck was deleted')
+    this.props.navigation.navigate('Home')
+  }
+
+  refreshPage = () => {
+    console.log('Back from add card')
+    this.setState({
+      refresh: ''
+    })
+  }
+
+  componentDidMount() {
+    console.log('Deck mounted!')
+    // const {deck} = this.props
+    console.log("The state is (deck): ", this.props)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('Should component update')
+    console.log('nextProps: ', nextProps.deck)
+    console.log('nextState: ', nextState)
+    if (nextProps.deck === undefined) {
+      return false
+    }
+    return true
+  }
+
   render() {
-    const { decks, navigation } = this.props
+    const { deck, navigation } = this.props
+    console.disableYellowBox = true;
+    // console.log('deck props: ', this.props)
 
     return (
       <View style={{flex: 1, justifyContent: 'flex-start'}}>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Home')}
+          onPress={() => navigation.navigate('Home')}
           style={{flexDirection: 'row', alignItems: 'center'}}
         >
           <MaterialIcons name="keyboard-arrow-left" size={30} color={purple} />
           <Text>Deck List</Text>
         </TouchableOpacity>
-        <PageTitle titleText={this.props.navigation.state.params.deck.title} />
-        <Text style={{ fontSize: 24, color: gray }}>{this.props.navigation.state.params.deck.questions.length} questions</Text>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate(
-            'Quiz',
-            { deck: this.props.navigation.state.params.deck }
-          )}
-          style={[styles.btnTextWrap, { marginTop: 72 }]}
-        >
-          <Text style={styles.btnText}>Start a quiz!</Text>
-        </TouchableOpacity>
+        <PageTitle titleText={deck.title} />
+        <Text style={{ fontSize: 24, color: gray }}>{deck.questions.length} questions</Text>
+
+        <View style={{marginTop: 72, flexDirection: 'row', justifyContent: 'space-around'}}>
+          <TouchableOpacity
+            style={[styles.btnTextWrap, { flex: 1, backgroundColor: lightPurple, marginRight: 3 }]}
+            onPress={this.handleDeleteDeck}
+          >
+            <Text style={styles.btnText}>Delete deck</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate(
+              'Quiz',
+              { deck: deck }
+            )}
+            disabled={deck.questions.length > 0 ? false : true}
+            style={deck.questions.length > 0
+              ? [styles.btnTextWrap, { flex: 1, backgroundColor: darkPurple, marginLeft: 3 }]
+              : [styles.btnTextWrapDisabled, { flex: 1, marginLeft: 3 }]
+            }
+          >
+            <Text style={styles.btnText}>Start a quiz!</Text>
+          </TouchableOpacity>
+        </View>
+
         <TouchableOpacity
           style={styles.btnCircle}
-          onPress={() => this.props.navigation.navigate(
+          onPress={() => navigation.navigate(
             'AddCard',
-            { deckId: this.props.navigation.state.params.deck.id }
+            { deckId: deck.id,
+              deck: deck,
+              onGoBack: () => this.refreshPage(),
+            }
           )}
           >
-          <View style={styles.btn__wrap}>
+          <View style={styles.btnWrap}>
             <MaterialIcons
               name="add"
               size={30}
@@ -68,7 +121,7 @@ const styles = StyleSheet.create({
     bottom: 18,
     right: 18,
   },
-  btn__wrap: {
+  btnWrap: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
@@ -89,6 +142,14 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0,0,0,.27)',
     shadowOpacity: 0.6,
   },
+  btnTextWrapDisabled: {
+    backgroundColor: gray,
+    marginTop: 18,
+    paddingTop: 36,
+    paddingRight: 18,
+    paddingBottom: 36,
+    paddingLeft: 18,
+  },
   btnText: {
     color: white,
     fontSize: 21,
@@ -97,4 +158,21 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Deck
+function mapStateToProps (state, props) {
+  console.log('mapStateToProps props: ', props)
+  console.log(`The state being mapped is: `, state)
+  const deckId = props.navigation.state.params.deckId
+  console.log(`The id being passed from props is ${deckId}`)
+  return {
+    deck: state.decks.filter( deck => deck.id === deckId )[0]
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ deleteDeck }, dispatch)
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Deck)
