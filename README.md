@@ -5,6 +5,8 @@ Features listed below. This project was bootstrapped with [Create React Native A
 
 This project was the final one in the React Nanodegree program through Udacity. For information, see (https://www.udacity.com/course/react-nanodegree--nd019).
 
+Flashy was built for iOS devices and was tested on an iPhone X via the Xcode simulator and the Expo app on an iPhone 6+.
+
 ### Features
 Users can do the following:
 - Create decks

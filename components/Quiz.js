@@ -93,7 +93,8 @@ class Quiz extends Component {
     const { opacity, bounceValue, questionIndex, deck, correct } = this.state
     const currQuestion = deck.questions[this.state.questionIndex]
     const totalQuestions = deck.questions.length
-
+    console.disableYellowBox = true;
+    
     return (
       <View>
         <TouchableOpacity

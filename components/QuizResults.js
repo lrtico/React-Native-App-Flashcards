@@ -6,6 +6,7 @@ import PageTitle from './PageTitle'
 
 const QuizResults = props => {
   const { currScore, totalQuestions, deckData } = props.navigation.state.params
+  console.disableYellowBox = true;
   return (
     <View style={{flex: 1}}>
       <TouchableOpacity

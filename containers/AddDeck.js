@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import { purple, white } from '../utils/colors'
@@ -30,8 +30,9 @@ class AddDeck extends Component {
 
   render() {
     const { deckName } = this.state.deckName
+    console.disableYellowBox = true;
     return (
-      <View>
+      <KeyboardAvoidingView>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('Home')}
           style={{flexDirection: 'row', alignItems: 'center'}}
@@ -54,7 +55,7 @@ class AddDeck extends Component {
         >
           <Text style={styles.btnText}>Add Deck</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

@@ -16,9 +16,10 @@ class DeckList extends Component {
       { deckId: deckData.id }
     )
   }
-  
+
   render() {
     const { decks, navigation } = this.props
+    console.disableYellowBox = true;
     return (
       <View style={{flex: 1, justifyContent: 'flex-start'}}>
         <MaterialIcons
@@ -40,7 +41,7 @@ class DeckList extends Component {
           style={styles.btnCircle}
           onPress={() => this.props.navigation.navigate('AddDeck')}
           >
-          <View style={styles.btn__wrap}>
+          <View style={styles.btnWrap}>
             <MaterialIcons
               name="add"
               size={30}
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     bottom: 18,
     right: 18,
   },
-  btn__wrap: {
+  btnWrap: {
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',

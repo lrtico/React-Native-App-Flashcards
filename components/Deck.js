@@ -32,6 +32,7 @@ class Deck extends Component {
 
   render() {
     const { deck, navigation } = this.props
+    console.disableYellowBox = true;
     return (
       <View style={{flex: 1, justifyContent: 'flex-start'}}>
         <TouchableOpacity
