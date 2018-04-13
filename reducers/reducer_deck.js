@@ -74,12 +74,23 @@ export default ( state = initialState, action ) => {
       return state.filter(deck => deck.id !== action.deckId)
     case ADD_CARD :
       const deckId = action.card.deckId
-      let newState = [...state]
-      const matchedDeck = newState.filter(deck => deck.id === deckId )[0]
-      matchedDeck.questions.push({id: action.card.id, question: action.card.question, answer: action.card.answer})
-      return [
-        ...newState
-      ]
+      return state.map(deck => {
+        if(deck.id === deckId) {
+          return {
+             ...deck,
+             questions: [
+               ...deck.questions,
+               {
+                 id: action.card.id,
+                 question: action.card.question,
+                 answer: action.card.answer
+               }
+             ]
+          }
+        } else {
+          return deck;
+        }
+      })
     default :
       return state
   }
